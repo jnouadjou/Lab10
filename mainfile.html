@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Json</title>
+    <style>
+        table{
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        td,th{
+            border: 1px solid #524a4a;
+            text-align: left;
+            padding: 8px;
+            width: 33%;
+            text-align: center;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<script type="text/javascript">
+   $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: 'data.json',
+        success: function (data) {
+            $(data.data).each(function () {
+                $('#table').append('<tr><td>' + this.item + '</td><td>' + this.price + '</td><td>' + this.quantity + '</td></tr>')
+            });
+        }
+    });
+
+    function createRequestObject() {
+
+var ro
+var browser = navigator.appName
+if(browser == "Microsoft Internet Explorer"){
+  ro = new ActiveXObject("Microsoft.XMLHTTP")
+}else{
+  ro = new XMLHttpRequest()
+}
+return ro
+
+}
+
+var http = createRequestObject()
+
+function sndReq() {
+
+http.open('get', 'phone.xml', true)
+http.onreadystatechange = handleResponse
+http.send(null)
+}
+
+function handleResponse() {
+
+if(http.readyState == 4) {
+
+  var response = http.responseXML.documentElement
+  listings = response.getElementsByTagName("LISTING")
+
+  for (i=0;i<listings.length;i++)
+    {
+    nameobj = listings[i].getElementsByTagName("FIRST")
+
+    if (nameobj[0].firstChild.data == document.getElementById("first").value){
+
+      addressobj = listings[i].getElementsByTagName("ADDRESS")
+      phoneobj = listings[i].getElementsByTagName("PHONE")
+      pictureobj = listings[i].getElementsByTagName("PICTURE")
+
+      document.getElementById("address").innerHTML = addressobj[0].firstChild.data
+      document.getElementById("phone").innerHTML = phoneobj[0].firstChild.data
+      document.getElementById("picture").innerHTML = "<img src=" + pictureobj[0].firstChild.data + "/>"
+    }
+  }
+}
+}
+    
+    
+</script>
+
+<body>
+    <div>
+        <table id="table">
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </table>
+    </div>
+    <form id="search">
+        <input type="text" id="first" />
+        <input type="button" value="Search Phonebook" onClick="sndReq()" />
+    
+    </form>
+    <div id="address"></div>
+    <div id="phone"></div>
+    <div id="picture"></div>
+</body>
+
+</html>

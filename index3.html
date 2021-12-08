@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<script type="text/javascript">
+    function GetList() {
+        $("#status").text("Started!");
+        $.ajax({
+            url: 'data.json',
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                var json = JSON.parse(data);
+                DisplayData(json);
+                $("#status").text("Complete!");
+            },
+            error: function (jqXHR, textStatus, errorThrown) { 
+                $("#status").text("Error!");
+             }
+        });
+    }
+    
+    function DisplayData(json) {
+        $("#item").text(json.item);
+        $("#price").text(json.price);
+        $("#quantity").text(json.quantity);
+    }
+</script>
+
+<body>
+    <h2>jQuery AJAX Example, JSON Object</h2>
+    <br>
+    <div id="listResults">
+        <div id="item">
+
+        </div>
+        <div id="price">
+
+        </div>
+        <hr>
+        <div id="quantity">
+
+        </div>
+    </div>
+    <button type="button" onclick="GetList()">
+        Get List using Json
+    </button>
+    <br>
+    <button type="button" onclick="GetWeatherInfo2()">
+        Get Weather Info 2
+    </button>
+</body>
+
+</html>

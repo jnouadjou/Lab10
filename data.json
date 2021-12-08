@@ -1,0 +1,30 @@
+{
+  "data" : [
+    {
+       "item": "Pen",
+       "price": "10",
+       "quantity": "500"
+    },
+    {
+       "item": "Football",
+       "price": "200",
+       "quantity": "30"
+    },
+    {
+       "item": "Skateboard",
+       "price": "500",
+       "quantity": "15"
+    },
+    {
+       "item": "Scale",
+       "price": "10",
+       "quantity": "20"
+    },
+    {
+       "item": "Tablet",
+       "price": "20000",
+       "quantity": "6"
+    }
+  ]
+
+}
